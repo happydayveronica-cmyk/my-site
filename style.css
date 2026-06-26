@@ -330,3 +330,93 @@ footer {
   padding: 1px 3px;
   border-radius: 4px;
 }
+.compare-box {
+  max-width: 1400px;
+  margin: 0 auto 28px;
+  display: flex;
+  gap: 10px;
+}
+
+.compare-box select,
+.compare-box button {
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 2px solid #cbd5e1;
+  font-weight: 700;
+}
+
+.compare-box select {
+  flex: 1;
+  background: white;
+}
+
+.compare-box button {
+  background: #172638;
+  color: white;
+  cursor: pointer;
+}
+
+.compare-box button:hover {
+  background: #0055a5;
+}
+
+.compare-table {
+  max-width: 1400px;
+  margin: 0 auto 32px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 14px rgba(0,0,0,.12);
+}
+
+.compare-table h2 {
+  margin: 0;
+  padding: 16px 20px;
+  background: #172638;
+  color: white;
+  font-size: 20px;
+}
+
+.compare-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 1fr;
+  border-bottom: 1px solid #eee;
+}
+
+.compare-row:last-child {
+  border-bottom: none;
+}
+
+.compare-cell {
+  padding: 14px 16px;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.compare-label {
+  background: #f8fafc;
+  font-weight: 900;
+  color: #172638;
+}
+
+.compare-cell ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+@media (max-width: 720px) {
+  .compare-box {
+    flex-direction: column;
+  }
+
+  .compare-row {
+    grid-template-columns: 1fr;
+  }
+
+  .compare-label {
+    background: #172638;
+    color: white;
+  }
+}
