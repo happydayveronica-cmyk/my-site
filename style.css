@@ -189,23 +189,22 @@ footer {
 }
 
 .school-buttons button {
-  height: 36px;
-  padding: 0 16px;
-  border: 1px solid #c9c2b7;
-  border-radius: 999px;
-  background: #ffffff;
-  color: #172d44;
+  height: 38px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 20px;
+  color: white;
   font-weight: 700;
   cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
 }
 
-.school-buttons button:hover {
-  background: #172d44;
-  color: white;
+.school-buttons button:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.05);
 }
 
-.school-buttons button.active {
-  background: #172d44;
-  color: white;
-  border-color: #172d44;
+.school-buttons button.active{
+  outline:3px solid #222;
 }
