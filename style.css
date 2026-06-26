@@ -134,7 +134,7 @@ header {
 .cardHeader {
   background: #1f2c3d;
   color: white;
-  padding: 14px 18px;
+  padding: 12px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -142,15 +142,15 @@ header {
 
 .cardHeader h2 {
   margin: 0;
-  font-size: 21px;
-  font-weight: 800;
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .cardHeader span {
   background: #3c516c;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
   white-space: nowrap;
 }
 
