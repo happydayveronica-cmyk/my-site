@@ -144,3 +144,101 @@ clearSearch.addEventListener("click", () => {
 });
 
 render();
+const compareA = document.getElementById("compareA");
+const compareB = document.getElementById("compareB");
+const compareBtn = document.getElementById("compareBtn");
+const closeCompareBtn = document.getElementById("closeCompareBtn");
+const compareResult = document.getElementById("compareResult");
+
+function initCompareSelects() {
+  if (!compareA || !compareB) return;
+
+  const options = schools
+    .filter(school => school.name)
+    .map(school => `<option value="${school.name}">${school.name}</option>`)
+    .join("");
+
+  compareA.innerHTML = options;
+  compareB.innerHTML = options;
+
+  if (schools.length > 1) {
+    compareB.selectedIndex = 1;
+  }
+}
+
+function getSectionItems(school, keyword) {
+  const section = school.sections.find(sec =>
+    sec.title.includes(keyword) || sec.tag.includes(keyword)
+  );
+
+  if (!section) return "<p>자료 없음</p>";
+
+  return `
+    <ul>
+      ${section.items.map(item => `<li>${item}</li>`).join("")}
+    </ul>
+  `;
+}
+
+function renderCompare() {
+  const schoolA = schools.find(s => s.name === compareA.value);
+  const schoolB = schools.find(s => s.name === compareB.value);
+
+  if (!schoolA || !schoolB) return;
+
+  compareResult.innerHTML = `
+    <div class="compare-table">
+      <h2>${schoolA.name} vs ${schoolB.name}</h2>
+
+      <div class="compare-row">
+        <div class="compare-cell compare-label">학교</div>
+        <div class="compare-cell"><strong>${schoolA.name}</strong></div>
+        <div class="compare-cell"><strong>${schoolB.name}</strong></div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-cell compare-label">요약</div>
+        <div class="compare-cell">${schoolA.subtitle || "요약 없음"}</div>
+        <div class="compare-cell">${schoolB.subtitle || "요약 없음"}</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-cell compare-label">학종</div>
+        <div class="compare-cell">${getSectionItems(schoolA, "학종")}</div>
+        <div class="compare-cell">${getSectionItems(schoolB, "학종")}</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-cell compare-label">논술</div>
+        <div class="compare-cell">${getSectionItems(schoolA, "논술")}</div>
+        <div class="compare-cell">${getSectionItems(schoolB, "논술")}</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-cell compare-label">정시</div>
+        <div class="compare-cell">${getSectionItems(schoolA, "정시")}</div>
+        <div class="compare-cell">${getSectionItems(schoolB, "정시")}</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-cell compare-label">면접</div>
+        <div class="compare-cell">${getSectionItems(schoolA, "면접")}</div>
+        <div class="compare-cell">${getSectionItems(schoolB, "면접")}</div>
+      </div>
+    </div>
+  `;
+
+  compareResult.scrollIntoView({ behavior: "smooth" });
+}
+
+if (compareBtn) {
+  compareBtn.addEventListener("click", renderCompare);
+}
+
+if (closeCompareBtn) {
+  closeCompareBtn.addEventListener("click", () => {
+    compareResult.innerHTML = "";
+  });
+}
+
+initCompareSelects();
