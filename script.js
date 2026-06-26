@@ -18,6 +18,15 @@ function getSchoolText(school) {
   ].join(" ").toLowerCase();
 }
 
+function highlightText(text, keyword) {
+  if (!keyword) return text;
+
+  const safeKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const regex = new RegExp(`(${safeKeyword})`, "gi");
+
+  return text.replace(regex, `<mark class="highlight">$1</mark>`);
+}
+
 function renderButtons() {
   schoolButtons.innerHTML = "";
 
@@ -69,24 +78,46 @@ function render() {
   }
 
   visibleSchools.forEach(school => {
-    const sectionHtml = school.sections.map(section => `
-      <article class="card">
-        <div class="cardHeader">
-          <h2>${section.title}</h2>
-          <span>${section.tag}</span>
-        </div>
-        <ul>
-          ${section.items.map(item => `<li>${item}</li>`).join("")}
-        </ul>
-      </article>
-    `).join("");
+    const sectionHtml = school.sections.map(section => {
+      const sectionText = [
+        section.title || "",
+        section.tag || "",
+        ...section.items
+      ].join(" ").toLowerCase();
+
+      const sectionMatched =
+        keyword !== "" && sectionText.includes(keyword);
+
+      return `
+        <article class="card ${sectionMatched ? "matched-card" : ""}">
+          <div class="cardHeader">
+            <h2>${highlightText(section.title, keyword)}</h2>
+            <span>${highlightText(section.tag, keyword)}</span>
+          </div>
+
+          <ul>
+            ${section.items.map(item => {
+              const itemMatched =
+                keyword !== "" && item.toLowerCase().includes(keyword);
+
+              return `
+                <li class="${itemMatched ? "matched-row" : ""}">
+                  ${highlightText(item, keyword)}
+                </li>
+              `;
+            }).join("")}
+          </ul>
+        </article>
+      `;
+    }).join("");
 
     schoolList.innerHTML += `
       <section class="school">
         <div class="school-title">
-          <h1>${school.name}</h1>
-          <p>${school.subtitle || ""}</p>
+          <h1>${highlightText(school.name, keyword)}</h1>
+          <p>${highlightText(school.subtitle || "", keyword)}</p>
         </div>
+
         <div class="grid">
           ${sectionHtml}
         </div>
