@@ -185,21 +185,80 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  .school-title {
-    flex-direction: column;
-    gap: 4px;
-  }
+  .school-title{
 
-  .school-title h1 {
-    font-size: 25px;
-  }
+    margin-top:35px;
+
+    margin-bottom:20px;
+
+    border-bottom:3px solid #182536;
+
 }
 
-.school-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 20px 0 25px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #111827;
+.school-title h1{
+
+    margin:0;
+
+    font-size:40px;
+
+    font-weight:900;
+
+}
+.school-buttons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:12px;
+
+    padding:22px 0;
+
+    margin-bottom:28px;
+
+    background:white;
+
+    border-bottom:1px solid #ddd;
+
+}
+.school-buttons button{
+
+    padding:10px 20px;
+
+    border-radius:999px;
+
+    border:2px solid #1f4fb9;
+
+    background:white;
+
+    color:#1f4fb9;
+
+    font-weight:700;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.school-buttons button:hover{
+
+    background:#1f4fb9;
+
+    color:white;
+
+}
+
+.school-buttons button.active{
+
+    background:#182536;
+
+    border-color:#182536;
+
+    color:white;
+
 }
