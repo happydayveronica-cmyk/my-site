@@ -9,40 +9,31 @@ body {
   color: #111827;
 }
 
-header{
-    background:#1f2c3d;
-    border-bottom:3px solid #2b8cff;
-    box-shadow:0 2px 10px rgba(0,0,0,.2);
+/* 상단 헤더 */
+header {
+  background: #172638;
+  border-bottom: 3px solid #2b8cff;
+  box-shadow: 0 3px 10px rgba(0,0,0,.18);
 }
 
-.nav{
-    max-width:1500px;
-    height:72px;
-
-    margin:auto;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.nav {
+  max-width: 1400px;
+  height: 86px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.logo{
-
-    color:#ffffff;
-
-    font-size:42px;
-
-    font-weight:900;
-
-    letter-spacing:-1px;
-
+.logo {
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -1px;
 }
 
-.nav div:last-child {
-  color: #6b7280;
-  font-size: 14px;
-}
-
+/* 전체 영역 */
 .container {
   max-width: 1460px;
   margin: 0 auto;
@@ -62,47 +53,70 @@ header{
   padding: 0;
 }
 
+/* 대학 버튼 */
+.school-buttons {
+  max-width: 1400px;
+  margin: 22px auto 28px;
+  padding: 0 0 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 2px solid #172638;
+}
+
+.school-buttons button {
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 2px solid #0055a5;
+  background: #ffffff;
+  color: #0055a5;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.school-buttons button:hover {
+  background: #0055a5;
+  color: white;
+}
+
+.school-buttons button.active {
+  background: #172638;
+  border-color: #172638;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,.18);
+}
+
+/* 학교 제목 */
 .school {
   margin-bottom: 38px;
 }
 
-.school-title{
-
-    display:flex;
-    align-items:center;
-
-    gap:15px;
-
-    margin:30px 0 20px;
-
-    padding-bottom:12px;
-
-    border-bottom:3px solid #1f2c3d;
-
+.school-title {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+  margin: 30px 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #1f2c3d;
 }
 
-.school-title h1{
-
-    margin:0;
-
-    font-size:38px;
-
-    font-weight:900;
-
-    color:#1f2c3d;
-
+.school-title h1 {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 900;
+  color: #1f2c3d;
+  letter-spacing: -1px;
 }
 
-.school-title p{
-
-    margin-top:8px;
-
-    color:#6b7280;
-
-    font-size:15px;
-
+.school-title p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 15px;
 }
 
+/* 카드 */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -117,40 +131,27 @@ header{
   border: 1px solid #dedbd2;
 }
 
-.cardHeader{
-
-    background:#1f2c3d;
-
-    color:white;
-
-    padding:14px 18px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
+.cardHeader {
+  background: #1f2c3d;
+  color: white;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.cardHeader h2{
-
-    font-size:22px;
-
-    font-weight:800;
-
+.cardHeader h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
 }
 
-.cardHeader span{
-
-    background:#3c516c;
-
-    padding:5px 12px;
-
-    border-radius:20px;
-
-    font-size:12px;
-
+.cardHeader span {
+  background: #3c516c;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 .card ul {
@@ -186,93 +187,54 @@ footer {
   padding: 20px 24px;
 }
 
+/* 태블릿 */
 @media (max-width: 1100px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* 모바일 */
 @media (max-width: 720px) {
   .nav {
-    padding: 10px 16px;
+    height: 72px;
+    padding: 0 16px;
+  }
+
+  .logo {
+    font-size: 26px;
   }
 
   .container {
     padding: 0 12px 30px;
   }
 
+  .school-buttons {
+    margin: 16px auto 22px;
+    padding-bottom: 14px;
+    gap: 8px;
+  }
+
+  .school-buttons button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }
 
-  .school-title{
+  .school-title {
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 24px;
+  }
 
-    margin-top:35px;
+  .school-title h1 {
+    font-size: 30px;
+  }
 
-    margin-bottom:20px;
-
-    border-bottom:3px solid #182536;
-
-}
-
-.school-title h1{
-
-    margin:0;
-
-    font-size:40px;
-
-    font-weight:900;
-
-}
-.school-buttons{
-
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-
-    align-items:center;
-
-    padding:14px 20px;
-
-    background:#162332;
-
-    border-bottom:1px solid #2f4156;
-
-}
-.school-buttons button{
-
-    padding:8px 18px;
-
-    border-radius:999px;
-
-    border:1px solid #3d6dcc;
-
-    background:#233246;
-
-    color:white;
-
-    font-size:14px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-}
-
-.school-buttons button:hover{
-
-    background:#2b8cff;
-
-    border-color:#2b8cff;
-
-}
-
-.school-buttons button.active{
-
-    background:#e53935;
-
-    border-color:#e53935;
-
+  .school-title p {
+    font-size: 13px;
+  }
 }
