@@ -248,7 +248,6 @@ const schools = [
 },
 {
   name: "KAIST",
-  subtitle: "교사간담회 2026.06.08 · 전형 변경 · 면접 · 추천서 · 2028 개편",
   sections: [
     {
       title: "2027 변경사항",
