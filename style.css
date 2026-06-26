@@ -179,32 +179,41 @@ footer {
   }
 }
 
-.school-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 14px 0 22px;
-  padding-bottom: 14px;
-  border-bottom: 2px solid #111827;
+.school-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:20px 0 25px;
 }
 
-.school-buttons button {
-  height: 38px;
-  padding: 0 18px;
-  border: none;
-  border-radius: 20px;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+.school-buttons button{
+
+    padding:10px 22px;
+    border-radius:999px;
+    border:1px solid #d7d7d7;
+
+    background:white;
+    color:#1f2937;
+
+    font-size:15px;
+    font-weight:700;
+
+    cursor:pointer;
+    transition:.2s;
+
 }
 
 .school-buttons button:hover{
-  transform: translateY(-2px);
-  filter: brightness(1.05);
+
+    transform:translateY(-2px);
+    box-shadow:0 4px 10px rgba(0,0,0,.12);
+
 }
 
 .school-buttons button.active{
-  outline:3px solid #222;
+
+    background:#1f3550;
+    color:white;
+    border-color:#1f3550;
+
 }
