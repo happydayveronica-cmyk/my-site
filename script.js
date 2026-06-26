@@ -1,3 +1,19 @@
+const buttonColors = {
+  "전체":"#374151",
+
+  "고려대학교":"#8B1E3F",
+  "연세대학교":"#0B4EA2",
+  "KAIST":"#005BAC",
+  "한양대학교":"#0C4DA2",
+  "중앙대학교":"#0055A5",
+  "성균관대학교":"#004098",
+  "서강대학교":"#8B2332",
+  "경희대학교":"#8B1F41",
+  "이화여자대학교":"#0F6A8D",
+  "한국외국어대학교":"#006B5B",
+  "건국대학교":"#2F7D32",
+  "동국대학교":"#F57C00"
+};
 const schoolList = document.getElementById("schoolList");
 const schoolButtons = document.getElementById("schoolButtons");
 
