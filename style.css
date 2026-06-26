@@ -1,1 +1,43 @@
+#schoolList{
+    display:flex;
+    flex-direction:column;
+    gap:50px;
+}
 
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.cardHeader{
+    background:#20334d;
+    color:white;
+    padding:16px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.cardHeader span{
+    background:#3c5879;
+    padding:4px 12px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.card ul{
+    margin:0;
+    padding:20px 30px;
+}
+
+.card li{
+    margin-bottom:12px;
+}
