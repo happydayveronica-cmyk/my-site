@@ -1,43 +1,180 @@
-#schoolList{
-    display:flex;
-    flex-direction:column;
-    gap:50px;
+* {
+  box-sizing: border-box;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
-    gap:20px;
+body {
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+  background: #f3f0e9;
+  color: #111827;
 }
 
-.card{
-    background:white;
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
+header {
+  background: #f3f0e9;
+  border-top: 5px solid #111827;
 }
 
-.cardHeader{
-    background:#20334d;
-    color:white;
-    padding:16px 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.nav {
+  max-width: 1460px;
+  margin: 0 auto;
+  padding: 8px 24px 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
 }
 
-.cardHeader span{
-    background:#3c5879;
-    padding:4px 12px;
-    border-radius:20px;
-    font-size:12px;
+.logo {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -1px;
 }
 
-.card ul{
-    margin:0;
-    padding:20px 30px;
+.nav div:last-child {
+  color: #6b7280;
+  font-size: 14px;
 }
 
-.card li{
-    margin-bottom:12px;
+.container {
+  max-width: 1460px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+}
+
+.hero,
+.stats,
+.panel .filters {
+  display: none;
+}
+
+.panel {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.school {
+  margin-bottom: 38px;
+}
+
+.school-title {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 3px solid #111827;
+}
+
+.school-title h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.school-title p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  border: 1px solid #dedbd2;
+}
+
+.cardHeader {
+  background: #172d44;
+  color: white;
+  padding: 13px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardHeader h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.cardHeader span {
+  background: #3b536d;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.card ul {
+  list-style: none;
+  margin: 0;
+  padding: 12px 18px 16px;
+}
+
+.card li {
+  position: relative;
+  padding: 9px 0 9px 16px;
+  border-bottom: 1px solid #eee6da;
+  line-height: 1.55;
+  font-size: 15px;
+}
+
+.card li:last-child {
+  border-bottom: none;
+}
+
+.card li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  font-weight: 900;
+}
+
+footer {
+  text-align: right;
+  color: #b0aaa0;
+  font-size: 12px;
+  padding: 20px 24px;
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .nav {
+    padding: 10px 16px;
+  }
+
+  .container {
+    padding: 0 12px 30px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .school-title {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .school-title h1 {
+    font-size: 25px;
+  }
 }
