@@ -345,7 +345,6 @@ const schools = [
 
 {
   name: "고려대학교",
-  subtitle: "교사간담회 · 입시 데이터 · 학업우수 · 계열적합 · 논술",
   sections: [
     {
   title: "입시 데이터",
