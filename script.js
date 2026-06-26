@@ -8,19 +8,17 @@ let searchText = "";
 
 function getSchoolText(school) {
   return [
-    school.name,
+    school.name || "",
     school.subtitle || "",
     ...school.sections.flatMap(section => [
-      section.title,
-      section.tag,
+      section.title || "",
+      section.tag || "",
       ...section.items
     ])
   ].join(" ").toLowerCase();
 }
 
 function renderButtons() {
-  if (!schoolButtons) return;
-
   schoolButtons.innerHTML = "";
 
   const names = [
@@ -56,21 +54,17 @@ function render() {
   const visibleSchools = schools
     .filter(school => school.name)
     .filter(school => {
-      const matchSchool =
+      const schoolMatch =
         selectedSchool === "전체" || school.name === selectedSchool;
 
-      const matchKeyword =
+      const keywordMatch =
         keyword === "" || getSchoolText(school).includes(keyword);
 
-      return matchSchool && matchKeyword;
+      return schoolMatch && keywordMatch;
     });
 
   if (visibleSchools.length === 0) {
-    schoolList.innerHTML = `
-      <div class="empty-result">
-        검색 결과가 없습니다.
-      </div>
-    `;
+    schoolList.innerHTML = `<div class="empty-result">검색 결과가 없습니다.</div>`;
     return;
   }
 
@@ -81,7 +75,6 @@ function render() {
           <h2>${section.title}</h2>
           <span>${section.tag}</span>
         </div>
-
         <ul>
           ${section.items.map(item => `<li>${item}</li>`).join("")}
         </ul>
@@ -94,7 +87,6 @@ function render() {
           <h1>${school.name}</h1>
           <p>${school.subtitle || ""}</p>
         </div>
-
         <div class="grid">
           ${sectionHtml}
         </div>
@@ -103,19 +95,15 @@ function render() {
   });
 }
 
-if (searchInput) {
-  searchInput.addEventListener("input", () => {
-    searchText = searchInput.value;
-    render();
-  });
-}
+searchInput.addEventListener("input", () => {
+  searchText = searchInput.value;
+  render();
+});
 
-if (clearSearch) {
-  clearSearch.addEventListener("click", () => {
-    searchText = "";
-    searchInput.value = "";
-    render();
-  });
-}
+clearSearch.addEventListener("click", () => {
+  searchText = "";
+  searchInput.value = "";
+  render();
+});
 
 render();
