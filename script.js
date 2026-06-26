@@ -1,71 +1,42 @@
-const buttonColors = {
-  "전체": "#374151",
-
-  "고려대학교": "#8B1E3F",
-  "포스텍": "#0B4EA2",
-  "KAIST": "#005BAC",
-  "한양대학교": "#0C4DA2",
-  "중앙대학교": "#0055A5",
-  "성균관대학교": "#004098",
-  "서강대학교": "#8B2332",
-  "경희대학교": "#8B1F41",
-  "이화여자대학교": "#0F6A8D",
-  "한국외국어대학교": "#006B5B",
-  "건국대학교": "#2F7D32",
-  "동국대학교": "#F57C00"
-};
-
 const schoolList = document.getElementById("schoolList");
 const schoolButtons = document.getElementById("schoolButtons");
+const searchInput = document.getElementById("searchInput");
+const clearSearch = document.getElementById("clearSearch");
 
 let selectedSchool = "전체";
+let searchText = "";
+
+function getSchoolText(school) {
+  return [
+    school.name,
+    school.subtitle || "",
+    ...school.sections.flatMap(section => [
+      section.title,
+      section.tag,
+      ...section.items
+    ])
+  ].join(" ").toLowerCase();
+}
 
 function renderButtons() {
   if (!schoolButtons) return;
 
   schoolButtons.innerHTML = "";
 
-  const names = ["전체", ...schools.map(school => school.name)];
+  const names = [
+    "전체",
+    ...schools
+      .map(school => school.name)
+      .filter(name => name && name.trim() !== "")
+  ];
 
   names.forEach(name => {
     const button = document.createElement("button");
-    const color = buttonColors[name] || "#4F46E5";
-
     button.textContent = name;
 
-    button.style.padding = "9px 18px";
-    button.style.borderRadius = "999px";
-    button.style.fontSize = "14px";
-    button.style.fontWeight = "800";
-    button.style.cursor = "pointer";
-    button.style.transition = "all .2s ease";
-
     if (selectedSchool === name) {
-      button.style.background = color;
-      button.style.color = "#ffffff";
-      button.style.border = `2px solid ${color}`;
-      button.style.boxShadow = "0 6px 14px rgba(0,0,0,.18)";
-      button.style.transform = "translateY(-2px)";
-    } else {
-      button.style.background = "#ffffff";
-      button.style.color = color;
-      button.style.border = `2px solid ${color}`;
-      button.style.boxShadow = "none";
+      button.classList.add("active");
     }
-
-    button.onmouseenter = () => {
-      if (selectedSchool !== name) {
-        button.style.background = color;
-        button.style.color = "#ffffff";
-      }
-    };
-
-    button.onmouseleave = () => {
-      if (selectedSchool !== name) {
-        button.style.background = "#ffffff";
-        button.style.color = color;
-      }
-    };
 
     button.onclick = () => {
       selectedSchool = name;
@@ -78,13 +49,30 @@ function renderButtons() {
 
 function render() {
   renderButtons();
-
   schoolList.innerHTML = "";
 
-  const visibleSchools =
-    selectedSchool === "전체"
-      ? schools
-      : schools.filter(school => school.name === selectedSchool);
+  const keyword = searchText.trim().toLowerCase();
+
+  const visibleSchools = schools
+    .filter(school => school.name)
+    .filter(school => {
+      const matchSchool =
+        selectedSchool === "전체" || school.name === selectedSchool;
+
+      const matchKeyword =
+        keyword === "" || getSchoolText(school).includes(keyword);
+
+      return matchSchool && matchKeyword;
+    });
+
+  if (visibleSchools.length === 0) {
+    schoolList.innerHTML = `
+      <div class="empty-result">
+        검색 결과가 없습니다.
+      </div>
+    `;
+    return;
+  }
 
   visibleSchools.forEach(school => {
     const sectionHtml = school.sections.map(section => `
@@ -112,6 +100,21 @@ function render() {
         </div>
       </section>
     `;
+  });
+}
+
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    searchText = searchInput.value;
+    render();
+  });
+}
+
+if (clearSearch) {
+  clearSearch.addEventListener("click", () => {
+    searchText = "";
+    searchInput.value = "";
+    render();
   });
 }
 
