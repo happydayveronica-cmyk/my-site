@@ -302,3 +302,31 @@ footer {
   box-shadow: 0 0 0 3px rgba(249,168,37,.18),
               0 6px 16px rgba(0,0,0,.16);
 }
+/* 검색 시 흐리게 */
+.dimmed {
+  color: #a8a8a8 !important;
+  opacity: 0.45;
+  transition: .2s;
+}
+
+/* 검색된 카드 */
+.matched-card {
+  border: 2px solid #f4b400;
+  box-shadow: 0 0 0 3px rgba(244,180,0,.18);
+}
+
+/* 검색된 줄 */
+.matched-row {
+  background: #fff8c5;
+  color: #c62828;
+  font-weight: 700;
+}
+
+/* 검색어 */
+.highlight {
+  background: #ffe45c;
+  color: #c62828;
+  font-weight: 900;
+  padding: 1px 3px;
+  border-radius: 4px;
+}
