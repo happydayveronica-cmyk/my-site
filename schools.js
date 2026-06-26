@@ -2,7 +2,6 @@ const schools = [
 
 {
     name:"중앙대학교",
-    subtitle:"교사간담회",
 
     sections:[
         {
