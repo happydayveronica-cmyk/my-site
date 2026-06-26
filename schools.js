@@ -5,7 +5,7 @@ const schools = [
 
     sections:[
         {
-            title:"성장형인재 전형",
+            title:"성장형인재전형",
             tag:"학종",
             items:[
                 "성장형 인재 전형 신설",
