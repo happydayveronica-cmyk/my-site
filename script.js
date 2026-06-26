@@ -1,29 +1,27 @@
 const buttonColors = {
-  "전체":"#374151",
+  "전체": "#374151",
 
-  "고려대학교":"#8B1E3F",
-  "연세대학교":"#0B4EA2",
-  "KAIST":"#005BAC",
-  "한양대학교":"#0C4DA2",
-  "중앙대학교":"#0055A5",
-  "성균관대학교":"#004098",
-  "서강대학교":"#8B2332",
-  "경희대학교":"#8B1F41",
-  "이화여자대학교":"#0F6A8D",
-  "한국외국어대학교":"#006B5B",
-  "건국대학교":"#2F7D32",
-  "동국대학교":"#F57C00"
+  "고려대학교": "#8B1E3F",
+  "연세대학교": "#0B4EA2",
+  "KAIST": "#005BAC",
+  "한양대학교": "#0C4DA2",
+  "중앙대학교": "#0055A5",
+  "성균관대학교": "#004098",
+  "서강대학교": "#8B2332",
+  "경희대학교": "#8B1F41",
+  "이화여자대학교": "#0F6A8D",
+  "한국외국어대학교": "#006B5B",
+  "건국대학교": "#2F7D32",
+  "동국대학교": "#F57C00"
 };
+
 const schoolList = document.getElementById("schoolList");
 const schoolButtons = document.getElementById("schoolButtons");
 
 let selectedSchool = "전체";
 
 function renderButtons() {
-  if (!schoolButtons) {
-    alert("index.html에 schoolButtons 영역이 없습니다.");
-    return;
-  }
+  if (!schoolButtons) return;
 
   schoolButtons.innerHTML = "";
 
@@ -31,16 +29,48 @@ function renderButtons() {
 
   names.forEach(name => {
     const button = document.createElement("button");
+    const color = buttonColors[name] || "#4F46E5";
+
     button.textContent = name;
 
+    button.style.padding = "9px 18px";
+    button.style.borderRadius = "999px";
+    button.style.fontSize = "14px";
+    button.style.fontWeight = "800";
+    button.style.cursor = "pointer";
+    button.style.transition = "all .2s ease";
+
     if (selectedSchool === name) {
-      button.classList.add("active");
+      button.style.background = color;
+      button.style.color = "#ffffff";
+      button.style.border = `2px solid ${color}`;
+      button.style.boxShadow = "0 6px 14px rgba(0,0,0,.18)";
+      button.style.transform = "translateY(-2px)";
+    } else {
+      button.style.background = "#ffffff";
+      button.style.color = color;
+      button.style.border = `2px solid ${color}`;
+      button.style.boxShadow = "none";
     }
 
-    button.addEventListener("click", () => {
+    button.onmouseenter = () => {
+      if (selectedSchool !== name) {
+        button.style.background = color;
+        button.style.color = "#ffffff";
+      }
+    };
+
+    button.onmouseleave = () => {
+      if (selectedSchool !== name) {
+        button.style.background = "#ffffff";
+        button.style.color = color;
+      }
+    };
+
+    button.onclick = () => {
       selectedSchool = name;
       render();
-    });
+    };
 
     schoolButtons.appendChild(button);
   });
