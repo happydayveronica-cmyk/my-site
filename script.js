@@ -4,26 +4,27 @@ const schoolButtons = document.getElementById("schoolButtons");
 let selectedSchool = "전체";
 
 function renderButtons() {
+  if (!schoolButtons) {
+    alert("index.html에 schoolButtons 영역이 없습니다.");
+    return;
+  }
+
   schoolButtons.innerHTML = "";
 
-  const allButton = document.createElement("button");
-  allButton.textContent = "전체";
-  allButton.className = selectedSchool === "전체" ? "active" : "";
-  allButton.onclick = () => {
-    selectedSchool = "전체";
-    render();
-  };
-  schoolButtons.appendChild(allButton);
+  const names = ["전체", ...schools.map(school => school.name)];
 
-  schools.forEach((school) => {
+  names.forEach(name => {
     const button = document.createElement("button");
-    button.textContent = school.name;
-    button.className = selectedSchool === school.name ? "active" : "";
+    button.textContent = name;
 
-    button.onclick = () => {
-      selectedSchool = school.name;
+    if (selectedSchool === name) {
+      button.classList.add("active");
+    }
+
+    button.addEventListener("click", () => {
+      selectedSchool = name;
       render();
-    };
+    });
 
     schoolButtons.appendChild(button);
   });
@@ -31,15 +32,29 @@ function renderButtons() {
 
 function render() {
   renderButtons();
+
   schoolList.innerHTML = "";
 
   const visibleSchools =
     selectedSchool === "전체"
       ? schools
-      : schools.filter((school) => school.name === selectedSchool);
+      : schools.filter(school => school.name === selectedSchool);
 
-  visibleSchools.forEach((school) => {
-    let html = `
+  visibleSchools.forEach(school => {
+    const sectionHtml = school.sections.map(section => `
+      <article class="card">
+        <div class="cardHeader">
+          <h2>${section.title}</h2>
+          <span>${section.tag}</span>
+        </div>
+
+        <ul>
+          ${section.items.map(item => `<li>${item}</li>`).join("")}
+        </ul>
+      </article>
+    `).join("");
+
+    schoolList.innerHTML += `
       <section class="school">
         <div class="school-title">
           <h1>${school.name}</h1>
@@ -47,35 +62,10 @@ function render() {
         </div>
 
         <div class="grid">
-    `;
-
-    school.sections.forEach((section) => {
-      html += `
-        <article class="card">
-          <div class="cardHeader">
-            <h2>${section.title}</h2>
-            <span>${section.tag}</span>
-          </div>
-
-          <ul>
-      `;
-
-      section.items.forEach((item) => {
-        html += `<li>${item}</li>`;
-      });
-
-      html += `
-          </ul>
-        </article>
-      `;
-    });
-
-    html += `
+          ${sectionHtml}
         </div>
       </section>
     `;
-
-    schoolList.innerHTML += html;
   });
 }
 
