@@ -1,14 +1,478 @@
-const admissions = [
-  {
-    university:"가나다대학교",
-    region:"서울",
-    type:"수시 학생부교과",
-    track:"인문",
-    department:"경영학과",
-    seats:18,
-    method:"학생부 100%, 수능최저 적용",
-    note:"학교장추천 필요",
-    url:"#",
-    detail:"상세 설명"
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>입시 통합 뷰어</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+      color: #1e293b;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #4f46e5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 32px 20px;
+    }
+
+    .hero {
+      padding: 48px 32px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      box-shadow: 0 20px 40px rgba(79, 70, 229, 0.25);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: 38px;
+    }
+
+    .hero p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 17px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 22px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e2e8f0;
+    }
+
+    .stat-card span {
+      display: block;
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .stat-card strong {
+      font-size: 26px;
+      color: #4f46e5;
+    }
+
+    .panel {
+      background: white;
+      padding: 24px;
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e2e8f0;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    input, select, button {
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      padding: 0 14px;
+      font-size: 14px;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+    }
+
+    button {
+      border: none;
+      background: #4f46e5;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #4338ca;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+      background: white;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #475569;
+      font-size: 13px;
+      text-align: left;
+      padding: 14px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    td {
+      padding: 14px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    tr:hover td {
+      background: #f8fafc;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4f46e5;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #64748b;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 34px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">입시 통합 뷰어</div>
+    <div>2027 Admissions</div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>2027 입시 자료 통합 검색</h1>
+    <p>대학, 지역, 전형, 모집단위별 입시 정보를 한눈에 확인하세요.</p>
+  </section>
+
+  <section class="stats">
+    <div class="stat-card">
+      <span>전체 자료</span>
+      <strong id="totalCount">0</strong>
+    </div>
+    <div class="stat-card">
+      <span>대학 수</span>
+      <strong id="univCount">0</strong>
+    </div>
+    <div class="stat-card">
+      <span>지역 수</span>
+      <strong id="regionCount">0</strong>
+    </div>
+    <div class="stat-card">
+      <span>검색 결과</span>
+      <strong id="resultCount">0</strong>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="filters">
+      <input id="keyword" placeholder="대학명, 학과명, 전형명 검색" />
+
+      <select id="regionFilter">
+        <option value="">전체 지역</option>
+      </select>
+
+      <select id="typeFilter">
+        <option value="">전체 전형</option>
+      </select>
+
+      <select id="trackFilter">
+        <option value="">전체 계열</option>
+      </select>
+
+      <button onclick="downloadCSV()">CSV 저장</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>대학</th>
+            <th>지역</th>
+            <th>전형</th>
+            <th>계열</th>
+            <th>모집단위</th>
+            <th>인원</th>
+            <th>전형방법</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2027 입시 통합 뷰어
+</footer>
+
+<script>
+  const admissions = [
+    {
+      university: "가나다대학교",
+      region: "서울",
+      type: "수시 학생부교과",
+      track: "인문",
+      department: "경영학과",
+      seats: 18,
+      method: "학생부 100%, 수능최저 적용",
+      note: "학교장추천 필요"
+    },
+    {
+      university: "가나다대학교",
+      region: "서울",
+      type: "수시 학생부종합",
+      track: "자연",
+      department: "컴퓨터공학과",
+      seats: 24,
+      method: "서류 100%, 면접 없음",
+      note: "자기소개서 없음"
+    },
+    {
+      university: "대한대학교",
+      region: "경기",
+      type: "정시 일반전형",
+      track: "자연",
+      department: "간호학과",
+      seats: 32,
+      method: "수능 100%",
+      note: "수학 미적분/기하 권장"
+    },
+    {
+      university: "민국대학교",
+      region: "인천",
+      type: "수시 논술",
+      track: "인문",
+      department: "미디어커뮤니케이션학과",
+      seats: 12,
+      method: "논술 70% + 학생부 30%",
+      note: "수능최저 적용"
+    },
+    {
+      university: "서진대학교",
+      region: "경기",
+      type: "수시 학생부교과",
+      track: "예체능",
+      department: "디자인학부",
+      seats: 20,
+      method: "학생부 40% + 실기 60%",
+      note: "실기고사 있음"
+    }
+  ];
+
+  let filteredData = [...admissions];
+
+  const keyword = document.getElementById("keyword");
+  const regionFilter = document.getElementById("regionFilter");
+  const typeFilter = document.getElementById("typeFilter");
+  const trackFilter = document.getElementById("trackFilter");
+  const tableBody = document.getElementById("tableBody");
+
+  function uniqueValues(key) {
+    return [...new Set(admissions.map(item => item[key]))];
   }
-];
+
+  function fillSelect(select, values) {
+    values.forEach(value => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+  }
+
+  function updateStats() {
+    document.getElementById("totalCount").textContent = admissions.length;
+    document.getElementById("univCount").textContent = uniqueValues("university").length;
+    document.getElementById("regionCount").textContent = uniqueValues("region").length;
+    document.getElementById("resultCount").textContent = filteredData.length;
+  }
+
+  function renderTable() {
+    tableBody.innerHTML = "";
+
+    if (filteredData.length === 0) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="8" class="empty">검색 결과가 없습니다.</td>
+        </tr>
+      `;
+      return;
+    }
+
+    filteredData.forEach(item => {
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td><strong>${item.university}</strong></td>
+        <td>${item.region}</td>
+        <td><span class="badge">${item.type}</span></td>
+        <td>${item.track}</td>
+        <td>${item.department}</td>
+        <td>${item.seats}</td>
+        <td>${item.method}</td>
+        <td>${item.note}</td>
+      `;
+
+      tableBody.appendChild(row);
+    });
+  }
+
+  function applyFilters() {
+    const q = keyword.value.toLowerCase();
+    const region = regionFilter.value;
+    const type = typeFilter.value;
+    const track = trackFilter.value;
+
+    filteredData = admissions.filter(item => {
+      const text = `
+        ${item.university}
+        ${item.region}
+        ${item.type}
+        ${item.track}
+        ${item.department}
+        ${item.method}
+        ${item.note}
+      `.toLowerCase();
+
+      return (
+        text.includes(q) &&
+        (region === "" || item.region === region) &&
+        (type === "" || item.type === type) &&
+        (track === "" || item.track === track)
+      );
+    });
+
+    updateStats();
+    renderTable();
+  }
+
+  function downloadCSV() {
+    const headers = ["대학", "지역", "전형", "계열", "모집단위", "인원", "전형방법", "비고"];
+
+    const rows = filteredData.map(item => [
+      item.university,
+      item.region,
+      item.type,
+      item.track,
+      item.department,
+      item.seats,
+      item.method,
+      item.note
+    ]);
+
+    const csvContent = [headers, ...rows]
+      .map(row => row.map(value => `"${String(value).replaceAll('"', '""')}"`).join(","))
+      .join("\n");
+
+    const blob = new Blob(["\uFEFF" + csvContent], {
+      type: "text/csv;charset=utf-8;"
+    });
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "입시자료.csv";
+    link.click();
+  }
+
+  keyword.addEventListener("input", applyFilters);
+  regionFilter.addEventListener("change", applyFilters);
+  typeFilter.addEventListener("change", applyFilters);
+  trackFilter.addEventListener("change", applyFilters);
+
+  fillSelect(regionFilter, uniqueValues("region"));
+  fillSelect(typeFilter, uniqueValues("type"));
+  fillSelect(trackFilter, uniqueValues("track"));
+
+  updateStats();
+  renderTable();
+</script>
+
+</body>
+</html>
