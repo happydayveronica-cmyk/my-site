@@ -98,13 +98,19 @@ function render() {
           <ul>
             ${section.items.map(item => {
               const itemMatched =
-                keyword !== "" && item.toLowerCase().includes(keyword);
+  keyword !== "" && item.toLowerCase().includes(keyword);
 
-              return `
-                <li class="${itemMatched ? "matched-row" : ""}">
-                  ${highlightText(item, keyword)}
-                </li>
-              `;
+let cls = "";
+
+if (keyword !== "") {
+    cls = itemMatched ? "matched-row" : "dimmed";
+}
+
+return `
+  <li class="${cls}">
+    ${highlightText(item, keyword)}
+  </li>
+`;
             }).join("")}
           </ul>
         </article>
