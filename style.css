@@ -9,24 +9,40 @@ body {
   color: #111827;
 }
 
-header {
-  background: #f3f0e9;
-  border-top: 5px solid #111827;
+header{
+
+    background:#182536;
+
+    padding:24px 0;
+
+    box-shadow:0 3px 12px rgba(0,0,0,.15);
+
 }
 
-.nav {
-  max-width: 1460px;
-  margin: 0 auto;
-  padding: 8px 24px 10px;
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
+.nav{
+
+    max-width:1400px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
 }
 
-.logo {
-  font-size: 28px;
-  font-weight: 900;
-  letter-spacing: -1px;
+.logo{
+
+    color:white;
+
+    font-size:38px;
+
+    font-weight:900;
+
+    letter-spacing:-1px;
+
 }
 
 .nav div:last-child {
