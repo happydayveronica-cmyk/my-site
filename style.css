@@ -283,3 +283,22 @@ footer {
   color: #64748b;
   font-weight: 700;
 }
+.highlight {
+  background: #fff176;
+  color: #c62828;
+  padding: 1px 3px;
+  border-radius: 4px;
+  font-weight: 900;
+}
+
+.matched-row {
+  background: #fffde7;
+  color: #b71c1c;
+  font-weight: 700;
+}
+
+.matched-card {
+  border: 2px solid #f9a825;
+  box-shadow: 0 0 0 3px rgba(249,168,37,.18),
+              0 6px 16px rgba(0,0,0,.16);
+}
