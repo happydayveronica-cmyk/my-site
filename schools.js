@@ -193,7 +193,6 @@ const schools = [
     }
   ]
 },
-,
 {
   name: "성균관대학교",
   sections: [
