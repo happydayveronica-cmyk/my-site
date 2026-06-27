@@ -1,3 +1,17 @@
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d9e2ec;
+  --paper: #ffffff;
+  --surface: #f6f8fb;
+  --navy: #1f3556;
+  --blue: #1769aa;
+  --teal: #147d7e;
+  --amber: #f4b740;
+  --rose: #d94f70;
+  --shadow: 0 10px 24px rgba(23, 32, 51, 0.12);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -5,44 +19,59 @@
 body {
   margin: 0;
   font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
-  background: #f3f0e9;
-  color: #111827;
+  background:
+    linear-gradient(180deg, #edf4fb 0, #f6f8fb 280px),
+    var(--surface);
+  color: var(--ink);
 }
 
-/* 상단 헤더 */
 header {
-  background: #172638;
-  border-bottom: 3px solid #2b8cff;
-  box-shadow: 0 3px 10px rgba(0,0,0,.18);
+  background: linear-gradient(135deg, #203a60 0%, #1769aa 54%, #147d7e 100%);
+  border-bottom: 4px solid var(--amber);
+  box-shadow: 0 4px 18px rgba(23, 32, 51, 0.22);
 }
 
 .nav {
   max-width: 1400px;
-  height: 86px;
+  min-height: 112px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 24px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  gap: 8px;
 }
 
 .logo {
   color: #ffffff;
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 900;
-  letter-spacing: -1px;
+  letter-spacing: 0;
+  line-height: 1.25;
 }
 
-/* 전체 영역 */
+.header-meta {
+  width: fit-content;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
 .container {
   max-width: 1460px;
   margin: 0 auto;
-  padding: 0 24px 40px;
+  padding: 0 24px 42px;
 }
 
 .hero,
 .stats,
-.panel .filters {
+.panel .filters,
+.search-box,
+.compare-box {
   display: none;
 }
 
@@ -53,119 +82,218 @@ header {
   padding: 0;
 }
 
-/* 대학 버튼 */
 .school-buttons {
   max-width: 1400px;
-  margin: 22px auto 28px;
-  padding: 0 0 18px;
+  margin: 22px auto 18px;
+  padding: 18px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  border-bottom: 2px solid #172638;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(23, 32, 51, 0.08);
 }
 
 .school-buttons button {
-  padding: 9px 18px;
+  min-height: 36px;
+  padding: 8px 14px;
   border-radius: 999px;
-  border: 2px solid #0055a5;
+  border: 1px solid #b8c7d8;
   background: #ffffff;
-  color: #0055a5;
+  color: var(--navy);
   font-size: 14px;
   font-weight: 800;
   cursor: pointer;
-  transition: .2s;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
 
 .school-buttons button:hover {
-  background: #0055a5;
-  color: white;
+  border-color: var(--blue);
+  background: #e9f3fb;
+  transform: translateY(-1px);
 }
 
 .school-buttons button.active {
-  background: #172638;
-  border-color: #172638;
-  color: white;
-  box-shadow: 0 4px 10px rgba(0,0,0,.18);
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #ffffff;
+  box-shadow: 0 7px 14px rgba(31, 53, 86, 0.22);
 }
 
-/* 학교 제목 */
+.control-panel {
+  max-width: 1400px;
+  margin: 0 auto 30px;
+  padding: 18px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(360px, 1.25fr);
+  gap: 18px;
+}
+
+.control-section + .control-section {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  border-left: 1px solid #edf0f4;
+  padding-left: 18px;
+}
+
+.control-title {
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--navy);
+}
+
+.search-row,
+.compare-row-ui {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.search-row input,
+.compare-row-ui select {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 13px;
+  border: 1px solid #b8c7d8;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.search-row input:focus,
+.compare-row-ui select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(23, 105, 170, 0.16);
+}
+
+.search-row button,
+.compare-row-ui button {
+  height: 44px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 8px;
+  background: var(--navy);
+  color: #ffffff;
+  font-weight: 900;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.search-row button:hover,
+.compare-row-ui button:hover {
+  background: var(--blue);
+  transform: translateY(-1px);
+}
+
+#closeCompareBtn {
+  background: #7b8491;
+}
+
+#closeCompareBtn:hover {
+  background: #5f6875;
+}
+
+.vs {
+  color: var(--rose);
+  font-size: 15px;
+  font-weight: 900;
+}
+
 .school {
-  margin-bottom: 38px;
+  margin-bottom: 40px;
 }
 
 .school-title {
   display: flex;
-  align-items: baseline;
-  gap: 15px;
-  margin: 30px 0 20px;
-  padding-bottom: 12px;
-  border-bottom: 3px solid #1f2c3d;
+  align-items: flex-end;
+  gap: 14px;
+  margin: 32px 0 16px;
+  padding: 0 0 12px;
+  border-bottom: 3px solid var(--navy);
 }
 
 .school-title h1 {
   margin: 0;
-  font-size: 38px;
+  color: var(--navy);
+  font-size: 34px;
   font-weight: 900;
-  color: #1f2c3d;
-  letter-spacing: -1px;
+  letter-spacing: 0;
+  line-height: 1.2;
 }
 
 .school-title p {
-  margin: 0;
-  color: #6b7280;
-  font-size: 15px;
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
 }
 
-/* 카드 */
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 
 .card {
-  background: #ffffff;
+  background: var(--paper);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
-  border: 1px solid #dedbd2;
+  border: 1px solid var(--line);
+  box-shadow: 0 6px 18px rgba(23, 32, 51, 0.10);
 }
 
 .cardHeader {
-  background: #1f2c3d;
-  color: white;
-  padding: 12px 16px;
+  min-height: 54px;
+  background: linear-gradient(135deg, var(--navy), #2f617d);
+  color: #ffffff;
+  padding: 12px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
 
 .cardHeader h2 {
   margin: 0;
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.35;
 }
 
 .cardHeader span {
-  background: #3c516c;
-  padding: 4px 10px;
+  background: rgba(244, 183, 64, 0.95);
+  color: #2d2307;
+  padding: 4px 9px;
   border-radius: 999px;
   font-size: 11px;
+  font-weight: 900;
   white-space: nowrap;
 }
 
 .card ul {
   list-style: none;
   margin: 0;
-  padding: 12px 18px 16px;
+  padding: 10px 16px 14px;
 }
 
 .card li {
   position: relative;
-  padding: 9px 0 9px 16px;
-  border-bottom: 1px solid #eee6da;
-  line-height: 1.55;
-  font-size: 15px;
+  padding: 9px 0 9px 15px;
+  border-bottom: 1px solid #edf0f4;
+  line-height: 1.58;
+  font-size: 14px;
 }
 
 .card li:last-child {
@@ -173,216 +301,75 @@ header {
 }
 
 .card li::before {
-  content: "·";
+  content: "";
   position: absolute;
   left: 0;
-  top: 9px;
-  font-weight: 900;
+  top: 18px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--teal);
 }
 
-footer {
-  text-align: right;
-  color: #b0aaa0;
-  font-size: 12px;
-  padding: 20px 24px;
-}
-
-/* 태블릿 */
-@media (max-width: 1100px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* 모바일 */
-@media (max-width: 720px) {
-  .nav {
-    height: 72px;
-    padding: 0 16px;
-  }
-
-  .logo {
-    font-size: 26px;
-  }
-
-  .container {
-    padding: 0 12px 30px;
-  }
-
-  .school-buttons {
-    margin: 16px auto 22px;
-    padding-bottom: 14px;
-    gap: 8px;
-  }
-
-  .school-buttons button {
-    padding: 8px 14px;
-    font-size: 13px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .school-title {
-    flex-direction: column;
-    gap: 4px;
-    margin-top: 24px;
-  }
-
-  .school-title h1 {
-    font-size: 30px;
-  }
-
-  .school-title p {
-    font-size: 13px;
-  }
-}
-.search-box {
-  max-width: 1400px;
-  margin: -12px auto 28px;
-  display: flex;
-  gap: 10px;
-}
-
-.search-box input {
-  flex: 1;
-  height: 44px;
-  padding: 0 16px;
-  border: 2px solid #cbd5e1;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.search-box input:focus {
-  outline: none;
-  border-color: #0055a5;
-  box-shadow: 0 0 0 3px rgba(0,85,165,.15);
-}
-
-.search-box button {
-  height: 44px;
-  padding: 0 18px;
-  border: none;
-  border-radius: 12px;
-  background: #172638;
-  color: white;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.search-box button:hover {
-  background: #0055a5;
-}
 .empty-result {
-  padding: 40px;
+  padding: 42px 20px;
   text-align: center;
-  background: white;
-  border-radius: 12px;
-  color: #64748b;
-  font-weight: 700;
-}
-.highlight {
-  background: #fff176;
-  color: #c62828;
-  padding: 1px 3px;
-  border-radius: 4px;
-  font-weight: 900;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-weight: 800;
+  box-shadow: 0 6px 18px rgba(23, 32, 51, 0.08);
 }
 
-.matched-row {
-  background: #fffde7;
-  color: #b71c1c;
-  font-weight: 700;
-}
-
-.matched-card {
-  border: 2px solid #f9a825;
-  box-shadow: 0 0 0 3px rgba(249,168,37,.18),
-              0 6px 16px rgba(0,0,0,.16);
-}
-/* 검색 시 흐리게 */
 .dimmed {
-  color: #a8a8a8 !important;
-  opacity: 0.45;
-  transition: .2s;
+  color: #98a2b3 !important;
+  opacity: 0.55;
+  transition: opacity 0.18s ease;
 }
 
-/* 검색된 카드 */
 .matched-card {
-  border: 2px solid #f4b400;
-  box-shadow: 0 0 0 3px rgba(244,180,0,.18);
+  border: 2px solid var(--amber);
+  box-shadow: 0 0 0 3px rgba(244, 183, 64, 0.18), 0 8px 18px rgba(23, 32, 51, 0.12);
 }
 
-/* 검색된 줄 */
 .matched-row {
-  background: #fff8c5;
-  color: #c62828;
-  font-weight: 700;
+  background: #fff7d6;
+  color: #9b2c3f;
+  font-weight: 800;
 }
 
-/* 검색어 */
 .highlight {
-  background: #ffe45c;
-  color: #c62828;
-  font-weight: 900;
+  background: #ffe681;
+  color: #8f2036;
   padding: 1px 3px;
   border-radius: 4px;
-}
-.compare-box {
-  max-width: 1400px;
-  margin: 0 auto 28px;
-  display: flex;
-  gap: 10px;
-}
-
-.compare-box select,
-.compare-box button {
-  height: 42px;
-  padding: 0 14px;
-  border-radius: 10px;
-  border: 2px solid #cbd5e1;
-  font-weight: 700;
-}
-
-.compare-box select {
-  flex: 1;
-  background: white;
-}
-
-.compare-box button {
-  background: #172638;
-  color: white;
-  cursor: pointer;
-}
-
-.compare-box button:hover {
-  background: #0055a5;
+  font-weight: 900;
 }
 
 .compare-table {
   max-width: 1400px;
   margin: 0 auto 32px;
-  background: white;
-  border-radius: 12px;
+  background: var(--paper);
+  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 14px rgba(0,0,0,.12);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
 }
 
 .compare-table h2 {
   margin: 0;
-  padding: 16px 20px;
-  background: #172638;
-  color: white;
+  padding: 16px 18px;
+  background: linear-gradient(135deg, var(--navy), var(--teal));
+  color: #ffffff;
   font-size: 20px;
+  font-weight: 900;
 }
 
 .compare-row {
   display: grid;
-  grid-template-columns: 160px 1fr 1fr;
-  border-bottom: 1px solid #eee;
+  grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr);
+  border-bottom: 1px solid #edf0f4;
 }
 
 .compare-row:last-child {
@@ -396,9 +383,9 @@ footer {
 }
 
 .compare-label {
-  background: #f8fafc;
+  background: #eef4f7;
   font-weight: 900;
-  color: #172638;
+  color: var(--navy);
 }
 
 .compare-cell ul {
@@ -406,113 +393,66 @@ footer {
   padding-left: 18px;
 }
 
-@media (max-width: 720px) {
-  .compare-box {
-    flex-direction: column;
-  }
+footer {
+  max-width: 1460px;
+  margin: 0 auto;
+  text-align: right;
+  color: #8994a3;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 18px 24px 28px;
+}
 
-  .compare-row {
+@media (max-width: 1100px) {
+  .control-panel {
     grid-template-columns: 1fr;
   }
 
-  .compare-label {
-    background: #172638;
-    color: white;
+  .control-section + .control-section {
+    border-left: none;
+    border-top: 1px solid #edf0f4;
+    padding-left: 0;
+    padding-top: 16px;
   }
-}
-.control-panel {
-  max-width: 1400px;
-  margin: 20px auto 32px;
-  padding: 22px;
-  background: #ffffff;
-  border: 1px solid #d8dee8;
-  border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.10);
-}
 
-.control-section + .control-section {
-  margin-top: 22px;
-  padding-top: 20px;
-  border-top: 1px solid #e5e7eb;
-}
-
-.control-title {
-  margin-bottom: 12px;
-  font-size: 17px;
-  font-weight: 900;
-  color: #172638;
-}
-
-.search-row,
-.compare-row-ui {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.search-row input {
-  flex: 1;
-  height: 48px;
-  padding: 0 16px;
-  border: 2px solid #cbd5e1;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.search-row input:focus,
-.compare-row-ui select:focus {
-  outline: none;
-  border-color: #0055a5;
-  box-shadow: 0 0 0 3px rgba(0, 85, 165, .15);
-}
-
-.compare-row-ui select {
-  flex: 1;
-  height: 46px;
-  padding: 0 14px;
-  border: 2px solid #cbd5e1;
-  border-radius: 12px;
-  background: white;
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.vs {
-  color: #0055a5;
-  font-size: 18px;
-  font-weight: 900;
-}
-
-.search-row button,
-.compare-row-ui button {
-  height: 46px;
-  padding: 0 18px;
-  border: none;
-  border-radius: 12px;
-  background: #172638;
-  color: white;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.search-row button:hover,
-.compare-row-ui button:hover {
-  background: #0055a5;
-}
-
-#closeCompareBtn {
-  background: #6b7280;
-}
-
-#closeCompareBtn:hover {
-  background: #4b5563;
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 720px) {
+  .nav {
+    min-height: 92px;
+    padding: 20px 16px;
+  }
+
+  .logo {
+    font-size: 25px;
+  }
+
+  .header-meta {
+    font-size: 12px;
+  }
+
+  .container {
+    padding: 0 12px 30px;
+  }
+
+  .school-buttons {
+    margin: 14px auto 16px;
+    padding: 12px;
+    gap: 7px;
+  }
+
+  .school-buttons button {
+    min-height: 34px;
+    padding: 7px 11px;
+    font-size: 12px;
+  }
+
   .control-panel {
-    margin: 16px auto 24px;
-    padding: 16px;
+    margin-bottom: 22px;
+    padding: 14px;
   }
 
   .search-row,
@@ -521,7 +461,39 @@ footer {
     align-items: stretch;
   }
 
+  .search-row input,
+  .compare-row-ui select,
+  .search-row button,
+  .compare-row-ui button {
+    width: 100%;
+  }
+
   .vs {
     text-align: center;
+  }
+
+  .school-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-top: 24px;
+  }
+
+  .school-title h1 {
+    font-size: 28px;
+  }
+
+  .school-title p {
+    font-size: 13px;
+  }
+
+  .grid,
+  .compare-row {
+    grid-template-columns: 1fr;
+  }
+
+  .compare-label {
+    background: var(--navy);
+    color: #ffffff;
   }
 }
