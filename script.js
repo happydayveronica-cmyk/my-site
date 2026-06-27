@@ -27,15 +27,17 @@ function highlightText(text, keyword) {
   return text.replace(regex, `<mark class="highlight">$1</mark>`);
 }
 
+function getSortedSchoolNames() {
+  return schools
+    .map(school => school.name)
+    .filter(name => name && name.trim() !== "")
+    .sort((a, b) => a.localeCompare(b, "ko-KR"));
+}
+
 function renderButtons() {
   schoolButtons.innerHTML = "";
 
-  const names = [
-    "전체",
-    ...schools
-      .map(school => school.name)
-      .filter(name => name && name.trim() !== "")
-  ];
+  const names = ["전체", ...getSortedSchoolNames()];
 
   names.forEach(name => {
     const button = document.createElement("button");
