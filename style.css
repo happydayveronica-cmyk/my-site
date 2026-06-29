@@ -62,7 +62,7 @@ header {
 
 .school-name {
   color: #111827;
-  font-size: 32px;
+  font-size: 19px;
   font-weight: 900;
   letter-spacing: 0;
   line-height: 1.1;
@@ -71,7 +71,7 @@ header {
 .logo {
   margin-top: 4px;
   color: var(--teal);
-  font-size: 19px;
+  font-size: 32px;
   font-weight: 900;
   letter-spacing: 0;
   line-height: 1.35;
